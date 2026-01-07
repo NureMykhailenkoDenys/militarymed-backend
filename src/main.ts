@@ -11,7 +11,14 @@ async function bootstrap() {
     .setTitle('MilitaryMed')
     .setDescription('MilitaryMed telemedicine system')
     .setVersion('1.0')
-    .addBearerAuth()
+    .addBearerAuth(
+      {
+        type: 'http',
+        scheme: 'bearer',
+        bearerFormat: 'JWT',
+      },
+      'jwt-auth',
+    )
     .build();
 
   const document = SwaggerModule.createDocument(app, config);

@@ -19,9 +19,6 @@ export class SensorDataController {
   ) {}
 
   @Post()
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(UserRole.DEVICE)
-  @ApiBody({ type: CreateSensorDataDto })
   create(@Body() body: CreateSensorDataDto) {
     return this.sensorDataService.create({
       device: { id: body.deviceId },

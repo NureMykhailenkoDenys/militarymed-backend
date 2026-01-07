@@ -6,6 +6,8 @@ import { RolesGuard } from '../common/guards/roles.guard';
 import { Roles } from '../common/decorators/roles.decorator';
 import { UserRole } from '../common/enums/role.enum';
 import { ApiBearerAuth } from '@nestjs/swagger';
+import { CreateDeviceDto } from './dto/create-device.dto';
+import { ApiBody } from '@nestjs/swagger';
 
 @Controller('devices')
 @ApiBearerAuth('jwt-auth')
@@ -15,7 +17,8 @@ export class DevicesController {
   @Post()
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(UserRole.ADMIN, UserRole.DEVICE)
-  create(@Body() body) {
-    return this.devicesService.create(body);
+  @ApiBody({ type: CreateDeviceDto })
+  create(@Body() dto: CreateDeviceDto) {
+    return this.devicesService.create(dto);
   }
 }
